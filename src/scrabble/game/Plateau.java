@@ -14,9 +14,19 @@ public class Plateau {
     public static void setInitialiseTableau(){
         valeurFalseTableau = valeurTableau;
     }
-    public static String formationMotH(int pPositionX, int pPositionY){
+    public static void setCondirmTableau(){
+        valeurTableau = valeurFalseTableau;
+    }
+    public static String formationMotH(int pPositionX, int pPositionY, String pMot){
         String mot = "";
-        while (valeurFalseTableau[pPositionX][pPositionY]=='\0') {
+        int j = 0;
+        for (int i = pPositionX ; i < pPositionX + pMot.length(); i++){
+            valeurFalseTableau[i][pPositionY] = pMot.charAt(j);
+            j++;
+        }
+        System.out.println(!(valeurFalseTableau[pPositionX][pPositionY]=='\0'));
+        while (!(valeurFalseTableau[pPositionX][pPositionY]=='\0')) {
+            System.out.println(pPositionX);
             pPositionX--;
         }
         while (!(valeurFalseTableau[pPositionX][pPositionY]=='\0')){
@@ -36,4 +46,8 @@ public class Plateau {
         }
         return mot;
     }
+    public static void placerlesLettres(){
+
+    }
+
 }
