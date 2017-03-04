@@ -14,7 +14,7 @@ public class Plateau {
     public static void setInitialiseTableau(){
         valeurFalseTableau = valeurTableau;
     }
-    public static void setCondirmTableau(){
+    public static void setConfirmTableau(){
         valeurTableau = valeurFalseTableau;
     }
     public static String formationMotH(int pPositionX, int pPositionY, String pMot){
