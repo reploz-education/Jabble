@@ -73,22 +73,35 @@ public class Joueur extends Chevalet {
         do {
             System.out.println("Quelle serait la position X de ce mot ?" +
                     "Attention : elle ne peut être contenue qu'entre 1 et 15 ");
-            setPositionX(iniParametre.nextInt() + 1);
-            if (getPositionX()<=15 && getPositionX()>0)
+            setPositionX(iniParametre.nextInt() - 1);
+            if (getPositionX()<=14 && getPositionX()>0)
                 setPositionXValide(true);
         } while (!getpositionXValide());
+
         do {
             System.out.println("Quelle serait la positoin Y de ce mot ?" +
                     "Attention : elle ne peut être contenue qu'entre 1 et 15 ");
-            setPositionY((iniParametre.nextInt()) + 1);
-            if (getPositionY()<=15 && getPositionY()>0)
+            setPositionY(iniParametre.nextInt() - 1);
+            if (getPositionY()<=14 && getPositionY()>0)
                 setPositionYValide(true);
         } while (!getpositionYValide());
-
         // Initialise le tableau
         Plateau.setInitialiseTableau();
         //Placer les lettres dans le tableaux factices.
-        //Double fonction
+
+        //Double fonction (en fonction de l'horientation du mot
+        boolean verifOrientation = false;
+        String orientation;
+        do {
+            System.out.println("Quelle est l'orientation du mot ?" +
+                    "Attention, l'horientation ne peut être qu'horizontale ou verticale");
+            orientation = iniParametre.nextLine();
+            if (orientation == "horizontal" || orientation == "HORIZONTAL"){
+                Plateau.formationMotPrincipalH(getMot(),getPositionX(),getPositionY());
+            } else if(orientation == "vertical" || orientation == "VERTICAL"){
+                Plateau.formationMotPrincialV(getMot(),getPositionX(),getPositionY());
+            }
+        }while (!verifOrientation);
 
         //Verifier si le chevalet et les cases correspondantes possèdent ces lettres
         return true;
