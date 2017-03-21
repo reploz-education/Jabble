@@ -10,22 +10,37 @@ public class Joueur extends Chevalet {
     private int scorePlayer;
     private int positionX;
     private int positionY;
+    private boolean positionXValide;
+    private boolean positionYValide;
 
     //Accesseurs
     public String getNamePlayer(){
-        return namePlayer;
+        return this.namePlayer;
     }
     public String getMot(){
-        return mot;
+        return this.mot;
     }
     public int getPositionX(){
-        return positionX;
+        return this.positionX;
     }
     public int getPositionY() {
-        return positionY;
+        return this.positionY;
     }
-    public int getScorePlayer(){ return scorePlayer; }
+    public int getScorePlayer(){ return this.scorePlayer; }
+    public boolean getpositionXValide(){
+        return this.positionXValide;
+    }
+    public boolean getpositionYValide(){
+        return this.positionYValide;
+    }
+
     //Mutateurs
+    public void setPositionXValide(boolean positionXValide) {
+        this.positionXValide = positionXValide;
+    }
+    public void setPositionYValide(boolean positionYValide) {
+        this.positionYValide = positionYValide;
+    }
     public void setNamePlayer(String pNamePlayer){
         this.namePlayer = pNamePlayer;
     }
@@ -48,72 +63,37 @@ public class Joueur extends Chevalet {
     //Constructeur Joueur
     public Joueur(String pNamePlayer){this.namePlayer = pNamePlayer;}
     //Méthodes
-    public void placerdesLettres(String pMot, int positionX, int positionY, String pOrientation, boolean First){
-        //Initialise un nouveau tableau
+    public boolean pLacerDesLettres(){
+        setPositionXValide(false);
+        setPositionYValide(false);
+        //Demander le mot, la position X et Y de ce mot au préalable
+        System.out.println("Quelle mot voulez vous placer ?");
+        Scanner iniParametre = new Scanner(System.in);
+        setMot(iniParametre.nextLine());
+        do {
+            System.out.println("Quelle serait la position X de ce mot ?" +
+                    "Attention : elle ne peut être contenue qu'entre 1 et 15 ");
+            setPositionX(iniParametre.nextInt() + 1);
+            if (getPositionX()<=15 && getPositionX()>0)
+                setPositionXValide(true);
+        } while (!getpositionXValide());
+        do {
+            System.out.println("Quelle serait la positoin Y de ce mot ?" +
+                    "Attention : elle ne peut être contenue qu'entre 1 et 15 ");
+            setPositionY((iniParametre.nextInt()) + 1);
+            if (getPositionY()<=15 && getPositionY()>0)
+                setPositionYValide(true);
+        } while (!getpositionYValide());
+
+        // Initialise le tableau
         Plateau.setInitialiseTableau();
-        //Vérifier si le chevalet possède les lettres
-        //presenceLettres(pMot);
-        //Vérifier si le mot touche d'autres cases
-        boolean p = false;
-        if(!First){
-            p = touchother(pMot, positionX, positionY, pOrientation);
-            System.out.println(p);
-        } else {
-            p = touchmid(pMot, positionX, positionY, pOrientation);
-            System.out.println(p);
-        }
-        if(p){
-            //Récuperer les mots formés avec le placement des lettres
-            String MotFactice, MotFactice2;
-            ArrayList<String> motHorizontal = new ArrayList<String>();
-            ArrayList<String> motVertical = new ArrayList<String>();
+        //Placer les lettres dans le tableaux factices.
+        //Double fonction
 
-            if (pOrientation == "horizontal") {
-                for (int i = positionX ; i < positionX + pMot.length(); i++) {
-                    MotFactice = Plateau.formationMotH(i, positionY, pMot);
-                    MotFactice2 = Plateau.formationMotV(i, positionY);
-                    if (MotFactice.length()>=2){
-                        //Récuperer les mots
-                        System.out.println(MotFactice);
-                        motHorizontal.add(MotFactice);
-                    }
-                    if (MotFactice2.length()>=2){
-                        //Récupérer les mots
-                        System.out.println(MotFactice2);
-                        motVertical.add(MotFactice2);
-                    }
-                }
-                //Ici v'est la liste motHorizontal qui aura des doublons, ne le récuperer qu'une seule fois !
-            }
-            if (pOrientation == "vertical") {
-                for (int i = positionY; positionY < pMot.length(); i++) {
-                    MotFactice = Plateau.formationMotH(positionX, i, pMot);
-                    MotFactice2 = Plateau.formationMotV(positionX, i);
-                    if (MotFactice.length()>=2){
-                        //Récuperer les mots
-                        motHorizontal.add(MotFactice);
-                    }
-                    if (MotFactice2.length()>=2){
-                        //Récupérer les mots
-                        motVertical.add(MotFactice2);
-                    }
-                    Lettre.motValide(motVertical.get(i));
-                }
-                //Ici c'est la liste motVertical qui aura des doublons, ne le récuperer qu'une seule fois !
-            }
-            for (int i=0; i<motHorizontal.size();i++){
-                Lettre.motValide(motVertical.get(i));
-            }
-            for (int i=0; i<motVertical.size();i++){
-                Lettre.motValide(motHorizontal.get(i));
-            }
-        }
-        //Vérifier si les mots Factices récupérer est valide (je ne sais pas du tout comment je vais faire)
-        //Placer les lettres
+        //Verifier si le chevalet et les cases correspondantes possèdent ces lettres
+        return true;
     }
-    //Définir la vrai taille de la colonne/ligne qui doit être utilisé
-
-    public static boolean touchother(String pMot, int positionX, int positionY, String pOrientation){
+    public static boolean touchOther(String pMot, int positionX, int positionY, String pOrientation){
         if (pOrientation == "horizontal"){
             for (int i=positionX; i<pMot.length()+positionX; i++){
                 if(!(Plateau.getvaleurTableau(i+1, positionY)=='\0'))
@@ -146,7 +126,7 @@ public class Joueur extends Chevalet {
         }
         return false;
     }
-    public static boolean touchmid(String pMot, int positionX, int positionY, String pOrientation){
+    public static boolean touchMid(String pMot, int positionX, int positionY, String pOrientation){
         if (pOrientation == "horizontal" || pOrientation == "vertical"){
             for (int i=positionX; i<pMot.length()+positionX; i++)
                 if (positionX == 7 && positionY == 7)

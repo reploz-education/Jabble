@@ -7,6 +7,7 @@ public class Plateau {
     public static void setValeurTableau(int pPositionX, int pPositionY, char pLettres){
         valeurTableau[pPositionX][pPositionY] = pLettres;
     }
+
     public static char getvaleurTableau(int pPositionX, int pPositionY){
         return valeurTableau[pPositionX][pPositionY];
     }
@@ -14,10 +15,12 @@ public class Plateau {
     public static void setInitialiseTableau(){
         valeurFalseTableau = valeurTableau;
     }
+
     public static void setConfirmTableau(){
         valeurTableau = valeurFalseTableau;
     }
-    public static String formationMotH(int pPositionX, int pPositionY, String pMot){
+
+    public static String formationMotSecondaireH(int pPositionX, int pPositionY, String pMot){
         String mot = "";
         int j = 0;
         for (int i = pPositionX ; i < pPositionX + pMot.length(); i++){
@@ -35,8 +38,9 @@ public class Plateau {
         }
         return mot;
     }
-    public static String formationMotV(int pPositionX, int pPositionY){
-            String mot = "";
+
+    public static String formationMotSecondaireV(int pPositionX, int pPositionY){
+        String mot = "";
         while (valeurFalseTableau[pPositionX][pPositionY]=='\0') {
         pPositionX--;
         }
@@ -46,8 +50,21 @@ public class Plateau {
         }
         return mot;
     }
+
+    public static boolean formationMotPrincipalH(){
+
+        return true;
+    }
+    public static boolean formationMotPrinciâlV(){
+
+        return true;
+    }
+
+
     public static void placerlesLettres(){
 
     }
+
+
 
 }
