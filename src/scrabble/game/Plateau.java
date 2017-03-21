@@ -10,10 +10,13 @@ public class Plateau {
     public static char getvaleurTableau(int pPositionX, int pPositionY){
         return valeurTableau[pPositionX][pPositionY];
     }
+    public static char getValeurFalseTableau(int pPositionX, int pPositionY) {
+        return valeurFalseTableau[pPositionX][pPositionY];
+    }
+
     public static void setInitialiseTableau(){
         valeurFalseTableau = valeurTableau;
     }
-
     public static void setConfirmTableau(){
         valeurTableau = valeurFalseTableau;
     }
@@ -36,7 +39,6 @@ public class Plateau {
         }
         return mot;
     }
-
     public static String formationMotSecondaireV(int pPositionX, int pPositionY){
         String mot = "";
         while (valeurFalseTableau[pPositionX][pPositionY]=='\0') {
@@ -73,7 +75,6 @@ public class Plateau {
         }
         return true;
     }
-
 
     public static void placerlesLettres(){
 

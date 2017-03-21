@@ -21,8 +21,8 @@ public class Lettre {
     }//OK
    //Vérifie à partir de la base de données des mots scrabble s'il existe le mot choisi par l'utilisateur
     public static boolean motValide(String pMot){
-        String line, recherche = pMot, path="MotValideScrabble.txt";
-        System.out.println(recherche);
+        String line, path="MotValideScrabble.txt";
+        System.out.println(pMot);
         try{
             BufferedReader br = new BufferedReader(new FileReader(path));
             while ((line = br.readLine()) != null){

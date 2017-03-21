@@ -1,7 +1,5 @@
 package scrabble.game;
 import javax.swing.*;
-import javax.swing.JPanel;
-import java.awt.*;
 
 public class Fenetre extends JFrame{
     private Panneau pan = new Panneau();
@@ -25,7 +23,7 @@ public class Fenetre extends JFrame{
         go();
     }
     private void go(){
-        for(;;){
+        for(int i=0;i<5;i++){
             int x = pan.getPosX(), y = pan.getPosY();
             x++;
             y++;

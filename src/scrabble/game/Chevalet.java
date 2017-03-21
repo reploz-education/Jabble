@@ -177,33 +177,7 @@ class Chevalet {
         }
     }//Everything is all Right !!!
     //Vérifier s'il y a les lettres demandés sont disponible dans le chevalet
-    public boolean presenceLettres(String pMot){
-        this.setAllCaseFact();
-        boolean ok = false;
-        String find = null;
-        for(int i=0;i<pMot.length();i++){
-            find += pMot.charAt(i);
-            if (find == getCaseFact1()){
-                this.setCaseFact1(null);
-            } else if(find == getCaseFact2()){
-                this.setCaseFact2(null);
-            }else if(find == getCaseFact3()){
-                this.setCaseFact3(null);
-            }else if(find == getCaseFact4()){
-                this.setCaseFact4(null);
-            }else if(find == getCaseFact5()){
-                this.setCaseFact5(null);
-            }else if(find == getCaseFact6()){
-                this.setCaseFact6(null);
-            }else if(find == getCaseFact7()){
-                this.setCaseFact7(null);
-            } else {
-                return false;
-            }
-            find = null;
-        }
-        return ok;
-    }
+
     //Remplacer toutes les lettres du chevalet
     //Générer une lettre
     public String generateLettre(){
