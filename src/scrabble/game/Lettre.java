@@ -26,7 +26,7 @@ public class Lettre {
         try{
             BufferedReader br = new BufferedReader(new FileReader(path));
             while ((line = br.readLine()) != null){
-                if (line.contains(recherche)){
+                if (line.contains(pMot)){
                     return true;
                 }
             }
