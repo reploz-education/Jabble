@@ -21,43 +21,15 @@ public class Plateau {
         valeurTableau = valeurFalseTableau;
     }
 
-    public static String formationMotSecondaireH(int pPositionX, int pPositionY, String pMot){
-        String mot = "";
-        int j = 0;
-        for (int i = pPositionX ; i < pPositionX + pMot.length(); i++){
-            valeurFalseTableau[i][pPositionY] = pMot.charAt(j);
-            j++;
-        }
-        System.out.println(!(valeurFalseTableau[pPositionX][pPositionY]=='\0'));
-        while (!(valeurFalseTableau[pPositionX][pPositionY]=='\0')) {
-            System.out.println(pPositionX);
-            pPositionX--;
-        }
-        while (!(valeurFalseTableau[pPositionX][pPositionY]=='\0')){
-            mot += valeurFalseTableau[pPositionX][pPositionY];
-            pPositionX++;
-        }
-        return mot;
-    }
-    public static String formationMotSecondaireV(int pPositionX, int pPositionY){
-        String mot = "";
-        while (valeurFalseTableau[pPositionX][pPositionY]=='\0') {
-        pPositionX--;
-        }
-        while (!(valeurFalseTableau[pPositionX][pPositionY]=='\0')){
-        mot += valeurFalseTableau[pPositionX][pPositionY];
-        pPositionX++;
-        }
-        return mot;
-    }
-
     public static boolean formationMotPrincipalH(String pMot, int pPositionX, int pPositionY){
         if(pPositionX + pMot.length()>15){
             System.out.println("Votre mot depasse les cases du tableau");
             return false;
         }
-        for (int i = 0; i <=pMot.length(); i++){
-            if (!(getvaleurTableau(i + pPositionX , pPositionY) == pMot.charAt(i))){
+        for (int i = 1; i <pMot.length(); i++){
+            char c = pMot.charAt(i);
+            System.out.println(c);
+            if (!(getvaleurTableau(i + pPositionX , pPositionY) == c)){
                 setValeurFalseTableau(i + pPositionX , pPositionY, pMot.charAt(i));
             }
         }

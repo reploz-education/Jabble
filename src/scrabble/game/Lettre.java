@@ -1,7 +1,6 @@
 package scrabble.game;
-
 import java.io.*;
-//Everything is all Right !!!
+
 public class Lettre {
     private static int valeurLettres;
     private static int lettresUtilise = 0;

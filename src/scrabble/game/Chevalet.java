@@ -132,6 +132,17 @@ class Chevalet {
         this.case7 = case7;
     }
 
+    //Initialiser toutes les lettres du chevalet
+    public void initaliseChevalet(){
+        setCase1(generateLettre());
+        setCase2(generateLettre());
+        setCase3(generateLettre());
+        setCase4(generateLettre());
+        setCase4(generateLettre());
+        setCase5(generateLettre());
+        setCase6(generateLettre());
+        setCase7(generateLettre());
+    }
     //Changer les lettres du chevalet
     public void changeLettres(int pReplay){
         int a = 0;
@@ -177,7 +188,6 @@ class Chevalet {
         }
     }//Everything is all Right !!!
     //Vérifier s'il y a les lettres demandés sont disponible dans le chevalet
-
     //Remplacer toutes les lettres du chevalet
     //Générer une lettre
     public String generateLettre(){

@@ -2,7 +2,7 @@ package scrabble.game;
 import javax.swing.*;
 
 public class Fenetre extends JFrame{
-    private Panneau pan = new Panneau();
+/*    private Panneau pan = new Panneau();
 
     public Fenetre(){
         this.setTitle("animation");
@@ -18,6 +18,7 @@ public class Fenetre extends JFrame{
         Via une classe hérité de JPanel
         this.setContentPane(new Panneau());
          */
+  /*
         this.setContentPane(pan);
         this.setVisible(true);
         go();
@@ -41,4 +42,5 @@ public class Fenetre extends JFrame{
             }
         }
     }
+    */
 }

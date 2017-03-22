@@ -12,6 +12,7 @@ public class Main {
 
         Player1.placerdesLettres(Motest, positionX, positionY, orientation, true);
         */
-        Fenetre Scrabble = new Fenetre();
+        Joueur Player1 = new Joueur("Dimitri");
+        Player1.pLacerDesLettres();
     }
 }

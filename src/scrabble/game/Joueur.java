@@ -1,6 +1,7 @@
 package scrabble.game;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Joueur extends Chevalet {
 
@@ -65,13 +66,11 @@ public class Joueur extends Chevalet {
     public void setScorePlayer(int pScorePlayer) {
         this.scorePlayer = pScorePlayer;
     }
-    public void setPlacement(String pPlacement) {
-        String placement = pPlacement;
-    }
 
     //Constructeur Joueur
     public Joueur(String pNamePlayer) {
         this.namePlayer = pNamePlayer;
+        this.initaliseChevalet();
     }
 
     //Méthodes
@@ -104,18 +103,21 @@ public class Joueur extends Chevalet {
         //Double fonction (en fonction de l'horientation du mot
         boolean verifOrientation = false;
         String orientation;
-        do {
+        while (!verifOrientation){
             System.out.println("Quelle est l'orientation du mot ?" +
                     "Attention, l'horientation ne peut être qu'horizontal ou vertical");
             orientation = iniParametre.nextLine();
-            if (orientation == "horizontal" || orientation == "HORIZONTAL") {
+            System.out.println(orientation);
+            if (orientation.equals("horizontal") || orientation.equals("HORIZONTAL")) {
                 Plateau.formationMotPrincipalH(getMot(), getPositionX(), getPositionY());
                 setOrientationMot('h');
-            } else if (orientation == "vertical" || orientation == "VERTICAL") {
+                verifOrientation = true;
+            } else if (orientation.equals("vertical") || orientation.equals("VERTICAL")) {
                 Plateau.formationMotPrincialV(getMot(), getPositionX(), getPositionY());
                 setOrientationMot('v');
+                verifOrientation = true;
             }
-        } while (!verifOrientation);
+        }
         //Etape verification
         //Verifier si le mot indiqué touche bien une case contenant une lettre ou le milieu du tableau
         if (!touch(getMot(), getPositionX(), getPositionY())) {
@@ -125,19 +127,76 @@ public class Joueur extends Chevalet {
             if (!presenceLettres(getMot(), getPositionX(), getPositionY())) {
                 return false;
             } else {
-                // Récuperer les mots formés, puis valider tous les mots formés
-
+                // Récuperer les mots formés, puis verifier qu'ils font partis du dico
+                if (!motSecondaire()) {
+                    return false;
+                } else {
+                    System.out.println("Everything is all Right !!!");
+                    Plateau.setConfirmTableau();
+                }
             }
         }
         return true;
     }
-    public Map ListeMot(){
-        String MotFactice = "a";
-        Map tableaudeMot = new Hashtable();
-
-        return tableaudeMot;
+    public boolean motSecondaire() {
+        String MotFactice = "";
+        boolean alawaysAword = true;
+        ArrayList<String> tableaudeMot = new ArrayList<>();
+        if (getOrientationMot() == 'h') {
+            for (int i = getPositionX(); i <= getPositionX() + getMot().length(); i++) {
+                if (!(Plateau.getValeurFalseTableau(i, getPositionY() - 1) == '\0')
+                        && (Plateau.getValeurFalseTableau(i, getPositionY() + 1) == '\0')
+                        || !(Plateau.getValeurFalseTableau(i, getPositionY() + 1) == '\0')
+                        && (Plateau.getValeurFalseTableau(i, getPositionY() - 1) == '\0')) {
+                    int posMotsec = getPositionY(); // Position du mot secondaire
+                    while (alawaysAword) {
+                        if (!(posMotsec == '\0')) {
+                            posMotsec--;
+                        } else {
+                            alawaysAword = false;
+                        }
+                    }
+                    while (!alawaysAword) {
+                        if (!(posMotsec == '\0')) {
+                            MotFactice += Plateau.getValeurFalseTableau(i, posMotsec);
+                            posMotsec++;
+                        }
+                    }
+                    tableaudeMot.add(MotFactice);
+                }
+            }
+        } else if (getOrientationMot() == 'v') {
+            for (int i = getPositionY(); i <= getPositionY() + getMot().length(); i++) {
+                if (!(Plateau.getValeurFalseTableau(getPositionX(), i - 1) == '\0')
+                        && !(Plateau.getValeurFalseTableau(getPositionX(), i + 1) == '\0')
+                        || !(Plateau.getValeurFalseTableau(getPositionX(), i + 1) == '\0')
+                        && (Plateau.getValeurFalseTableau(getPositionX(), i - 1) == '\0')
+                        ) {
+                    int posMotsec = getPositionY(); // Position du mot secondaire
+                    while (alawaysAword) {
+                        if (!(posMotsec == '\0')) {
+                            posMotsec--;
+                        } else {
+                            alawaysAword = false;
+                        }
+                    }
+                    while (!alawaysAword) {
+                        if (!(posMotsec == '\0')) {
+                            MotFactice += Plateau.getValeurFalseTableau(i, posMotsec);
+                            posMotsec++;
+                        }
+                    }
+                    tableaudeMot.add(MotFactice);
+                }
+            }
+        }
+        for (String listeMot: tableaudeMot) {
+            if (!Lettre.motValide(listeMot)){
+                return false;
+            }
+        }
+        return true;
     }
-
     public boolean presenceLettres(String pMot, int pPositionX, int pPositionY) {
         this.setAllCaseFact();
         char find = '\0';
@@ -148,25 +207,25 @@ public class Joueur extends Chevalet {
                 find = Plateau.getValeurFalseTableau(pPositionX, pPositionY + i);
             }
             if (getCaseFact1().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase1());
+                System.out.println("Vous avez utiliser la lettre :" + getCase1() + "de la case 1");
                 this.setCaseFact1(null);
             } else if (getCaseFact2().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase2());
+                System.out.println("Vous avez utiliser la lettre :" + getCase2() + "de la case 2");
                 this.setCaseFact2(null);
             } else if (getCaseFact3().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase3());
+                System.out.println("Vous avez utiliser la lettre :" + getCase3() + "de la case 3");
                 this.setCaseFact3(null);
             } else if (getCaseFact4().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase4());
+                System.out.println("Vous avez utiliser la lettre :" + getCase4() + "de la case 4");
                 this.setCaseFact4(null);
             } else if (getCaseFact5().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase5());
+                System.out.println("Vous avez utiliser la lettre :" + getCase5() + "de la case 5");
                 this.setCaseFact5(null);
             } else if (getCaseFact6().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase6());
+                System.out.println("Vous avez utiliser la lettre :" + getCase6() + "de la case 6");
                 this.setCaseFact6(null);
             } else if (getCaseFact7().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase7());
+                System.out.println("Vous avez utiliser la lettre :" + getCase7() + "de la case 7");
                 this.setCaseFact7(null);
             } else if (Plateau.getValeurFalseTableau(pPositionX, pPositionY) == Plateau.getValeurFalseTableau(pPositionX, pPositionY)) {
                 System.out.println("La lettre " + Plateau.getValeurFalseTableau(pPositionX, pPositionY) + "se trouvait dans le tableau");
@@ -176,7 +235,6 @@ public class Joueur extends Chevalet {
         }
         return true;
     }
-
     public boolean touch(String pMot, int positionX, int positionY) {
         if (getOrientationMot() == 'h') {
             for (int i = positionX; i <= pMot.length() + positionX; i++) {
