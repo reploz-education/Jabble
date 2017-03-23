@@ -7,6 +7,9 @@ public class Plateau {
     public static void setValeurFalseTableau(int pPositionX, int pPositionY, char pLettres){
         valeurFalseTableau[pPositionX][pPositionY] = pLettres;
     }
+    public static void setValeurTableau(int pPositionX, int pPositionY, char pLettres){
+        valeurTableau[pPositionX][pPositionY] = pLettres;
+    }
     public static char getvaleurTableau(int pPositionX, int pPositionY){
         return valeurTableau[pPositionX][pPositionY];
     }
@@ -15,39 +18,19 @@ public class Plateau {
     }
 
     public static void setInitialiseTableau(){
-        valeurFalseTableau = valeurTableau;
+        for (int i=0;i<15;i++){
+            for (int j=0;j<15;j++){
+                setValeurFalseTableau(i,j,getvaleurTableau(i,j));
+            }
+        }
     }
     public static void setConfirmTableau(){
-        valeurTableau = valeurFalseTableau;
-    }
-
-    public static boolean formationMotPrincipalH(String pMot, int pPositionX, int pPositionY){
-        if(pPositionX + pMot.length()>15){
-            System.out.println("Votre mot depasse les cases du tableau");
-            return false;
-        }
-        for (int i = 1; i <pMot.length(); i++){
-            char c = pMot.charAt(i);
-            System.out.println(c);
-            if (!(getvaleurTableau(i + pPositionX , pPositionY) == c)){
-                setValeurFalseTableau(i + pPositionX , pPositionY, pMot.charAt(i));
+        for (int i=0;i<15;i++){
+            for (int j=0;j<15;j++){
+                setValeurTableau(i,j,getValeurFalseTableau(i,j));
             }
         }
-        return true;
     }
-    public static boolean formationMotPrincialV(String pMot, int pPositionX, int pPositionY){
-        if(pPositionY + pMot.length()>15){
-            System.out.println("Votre mot depasse les cases du tableau");
-            return false;
-        }
-        for (int i = 0 ; i <= pMot.length();i++){
-            if (!(getvaleurTableau(pPositionX ,i + pPositionY) == pMot.charAt(i))){
-                setValeurFalseTableau(pPositionX ,i + pPositionY, pMot.charAt(i));
-            }
-        }
-        return true;
-    }
-
     public static void placerlesLettres(){
 
     }
