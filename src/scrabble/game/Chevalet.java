@@ -1,5 +1,6 @@
 package scrabble.game;
 
+import java.util.Random;
 import java.util.Scanner;
 
 class Chevalet {
@@ -233,7 +234,6 @@ class Chevalet {
             }
         }
     }//Everything is all Right !!!
-
     //Vérifier s'il y a les lettres demandés sont disponible dans le chevalet
     //Remplacer toutes les lettres du chevalet
     //Générer une lettre
@@ -242,15 +242,15 @@ class Chevalet {
         if (Lettre.nouvellesLettresDisponible()) {
             String lettreChoisi = "";
             int i;
+            Random rand = new Random();
             do {
-                i = (int) Math.floor(Math.random() * 27);
-
-                if (i == 27) {
+                i = rand.nextInt(27);
+                if (i == 26) {
                     lettreChoisi = lettreJoker;
                 } else {
                     lettreChoisi += lettresAleatoires.charAt(i);
                 }
-            } while (i < 0 && i >= 27);
+            } while (i <= 0 && i >= 26);
             System.out.println("Vous avez récupérer la lettre : " + lettreChoisi);
             return lettreChoisi;
         } else {

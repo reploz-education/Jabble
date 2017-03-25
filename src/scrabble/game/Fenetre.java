@@ -1,46 +1,29 @@
 package scrabble.game;
+
 import javax.swing.*;
+import java.awt.*;
 
-public class Fenetre extends JFrame{
-/*    private Panneau pan = new Panneau();
+public class Fenetre extends JFrame {
+    Pscrabble plateau = new Pscrabble();
+    CScrabble chevalet = new CScrabble();
 
-    public Fenetre(){
-        this.setTitle("animation");
-        this.setSize(300,300);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public Fenetre() {
+        this.setTitle("Scrable");
+        this.setSize(700, 800);
         this.setLocationRelativeTo(null);
-        /* Créer un pannel
-        Via ligne de commande de la classe JPanel
-        JPanel pan = new JPanel();
-        pan.setBackground(Color.green);
-        this.setContentPane(pan);
-
-        Via une classe hérité de JPanel
-        this.setContentPane(new Panneau());
-         */
-  /*
-        this.setContentPane(pan);
+        this.setContentPane(plateau);
         this.setVisible(true);
-        go();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        miseajour();
     }
-    private void go(){
-        for(int i=0;i<5;i++){
-            int x = pan.getPosX(), y = pan.getPosY();
-            x++;
-            y++;
-            pan.setPosX(x);
-            pan.setPosY(y);
-            pan.repaint();
-            try{
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(x == pan.getWidth() || y == pan.getHeight()){
-                pan.setPosX(-50);
-                pan.setPosY(-50);
-            }
-        }
+
+    public void miseajour() {
+        plateau.repaint();
     }
-    */
+
+    public void changerchevalet(String case1, String case2, String case3, String case4, String case5, String case6, String case7) {
+        plateau.setAllCase(case1, case2, case3, case4, case5, case6, case7);
+        plateau.repaint();
+    }
+
 }

@@ -84,10 +84,7 @@ public class Joueur extends Chevalet {
     }
 
     //Constructeur Joueur
-    public Joueur(String pNamePlayer) {
-        this.namePlayer = pNamePlayer;
-        this.initaliseChevalet();
-    }
+    public Joueur() {}
 
     //Méthodes
     public boolean pLacerDesLettres() {
@@ -220,40 +217,39 @@ public class Joueur extends Chevalet {
 
     public boolean presenceLettres() {
         this.setAllCaseFact();
-        String find;
         String primaire;
+        String lettre;
         for (int i = 0; i < getMot().length(); i++) {
-            find = "";
             primaire = "";
+            lettre = "";
             if (getOrientationMot() == 'h') {
-                find += Plateau.getValeurFalseTableau(getPositionX() + i, getPositionY());
                 primaire += Plateau.getvaleurTableau(getPositionX() + i, getPositionY());
             } else if (getOrientationMot() == 'v') {
-                find += Plateau.getValeurFalseTableau(getPositionX(), getPositionY() + i);
                 primaire += Plateau.getvaleurTableau(getPositionX(), getPositionY() + i);
             }
-            if (this.getCase1().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase1() + "de la case 1");
+            lettre += getMot().charAt(i);
+            if (this.getCase1().equals(lettre)) {
+                System.out.println("Vous avez utiliser la lettre : " + getCase1() + "de la case 1");
                 this.setCaseFact1(generateLettre());
-            } else if (this.getCase2().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase2() + "de la case 2");
+            } else if (this.getCase2().equals(lettre)) {
+                System.out.println("Vous avez utiliser la lettre : " + getCase2() + "de la case 2");
                 this.setCaseFact2(generateLettre());
-            } else if (this.getCase3().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase3() + "de la case 3");
+            } else if (this.getCase3().equals(lettre)) {
+                System.out.println("Vous avez utiliser la lettre : " + getCase3() + "de la case 3");
                 this.setCaseFact3(generateLettre());
-            } else if (this.getCase4().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase4() + "de la case 4");
+            } else if (this.getCase4().equals(lettre)) {
+                System.out.println("Vous avez utiliser la lettre : " + getCase4() + "de la case 4");
                 this.setCaseFact4(generateLettre());
-            } else if (this.getCase5().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase5() + "de la case 5");
+            } else if (this.getCase5().equals(lettre)) {
+                System.out.println("Vous avez utiliser la lettre : " + getCase5() + "de la case 5");
                 this.setCaseFact5(generateLettre());
-            } else if (this.getCase6().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase6() + "de la case 6");
+            } else if (this.getCase6().equals(lettre)) {
+                System.out.println("Vous avez utiliser la lettre : " + getCase6() + "de la case 6");
                 this.setCaseFact6(generateLettre());
-            } else if (this.getCase7().equals(find)) {
-                System.out.println("Vous avez utiliser la lettre :" + getCase7() + "de la case 7");
+            } else if (this.getCase7().equals(lettre)) {
+                System.out.println("Vous avez utiliser la lettre : " + getCase7() + "de la case 7");
                 this.setCaseFact7(generateLettre());
-            } else if (find == primaire) {
+            } else if (lettre == primaire) {
                 System.out.println("La lettre " + Plateau.getValeurFalseTableau(getPositionX(), getPositionY()) + "se trouvait dans le tableau");
             } else {
                 if (this.getCase1().equals("Joker")) {
@@ -277,8 +273,9 @@ public class Joueur extends Chevalet {
                 } else if (this.getCase7().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact7(generateLettre());
+                } else {
+                    return false;
                 }
-                return false;
             }
         }
         return true;
@@ -287,24 +284,24 @@ public class Joueur extends Chevalet {
     public boolean touch() {
         if (getOrientationMot() == 'h') {
             for (int i = getPositionX(); i < getMot().length() + getPositionX(); i++) {
-                System.out.println("position X : "+i);
-                System.out.println("position Y : "+getPositionY());
-                if (!(Plateau.getvaleurTableau(i + 1, getPositionY()) == '\0')){
+                System.out.println("position X : " + i);
+                System.out.println("position Y : " + getPositionY());
+                if (!(Plateau.getvaleurTableau(i + 1, getPositionY()) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(i - 1, getPositionY()) == '\0')){
+                } else if (!(Plateau.getvaleurTableau(i - 1, getPositionY()) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(i, getPositionY() - 1) == '\0')){
+                } else if (!(Plateau.getvaleurTableau(i, getPositionY() - 1) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(i, getPositionY() + 1) == '\0')){
+                } else if (!(Plateau.getvaleurTableau(i, getPositionY() + 1) == '\0')) {
                     return true;
-                } else if (i == 7 && getPositionY() == 7){
+                } else if (i == 7 && getPositionY() == 7) {
                     return true;
                 }
             }
         } else if (getOrientationMot() == 'v') {
             for (int i = getPositionY(); i < getMot().length() + getPositionY(); i++) {
-                System.out.println("position X : "+getPositionX());
-                System.out.println("position Y : "+i);
+                System.out.println("position X : " + getPositionX());
+                System.out.println("position Y : " + i);
                 if (!(Plateau.getvaleurTableau(getPositionX() + 1, i) == '\0')) {
                     return true;
                 } else if (!(Plateau.getvaleurTableau(getPositionX() - 1, i) == '\0')) {
@@ -332,17 +329,26 @@ public class Joueur extends Chevalet {
                 return false;
             }
             for (int i = 0; i < getMot().length(); i++) {
-                if (Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == '\0') {
-                    Plateau.setValeurFalseTableau(getPositionX() + j, getPositionY(), getMot().charAt(i));
-                } else if (!(Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == getMot().charAt(i))) {
-                    while (!(Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == getMot().charAt(i))
-                            || (Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == '\0')) {
+                    if (j+getPositionY()>15){
+                        System.out.println("Erreur programme !");
+                        return false;
+                    }
+                    while (!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())=='\0')
+                            ||(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())==getMot().charAt(i))) {
                         j++;
                     }
-                    Plateau.setValeurFalseTableau(getPositionX() + j, getPositionY(), getMot().charAt(i));
-                }
+                    Plateau.setValeurFalseTableau(getPositionX()+j, getPositionY(), getMot().charAt(i));
+                    j++;
+            }
+            do {
+                j--;
+            } while((!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())=='\0')));
+            String motComplet = "";
+            while((!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())=='\0'))){
+                motComplet +=Plateau.getvaleurTableau(getPositionX()+j,getPositionY());
                 j++;
             }
+            System.out.println(motComplet);
             System.out.println("Le mot a été formé");
             return true;
         } else if (this.getOrientationMot() == 'v') {
@@ -351,15 +357,15 @@ public class Joueur extends Chevalet {
                 return false;
             }
             for (int i = 0; i < getMot().length(); i++) {
-                if (Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == '\0') {
-                    Plateau.setValeurFalseTableau(getPositionX(), j + getPositionY(), getMot().charAt(i));
-                } else if (!(Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == getMot().charAt(i))) {
-                    while (!(Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == getMot().charAt(i))
-                            || (Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == '\0')) {
-                        j++;
-                    }
-                    Plateau.setValeurFalseTableau(getPositionX(), j + getPositionY(), getMot().charAt(i));
+                if (j+getPositionY()>15){
+                    System.out.println("Erreur programme !");
+                    return false;
                 }
+                while (!(Plateau.getvaleurTableau(getPositionX(),getPositionY()+j)=='\0')
+                        ||(Plateau.getvaleurTableau(getPositionX(),getPositionY()+j)==getMot().charAt(i))) {
+                        j++;
+                }
+                Plateau.setValeurFalseTableau(getPositionX(), j + getPositionY(), getMot().charAt(i));
                 j++;
             }
             System.out.println("Le mot a été formé");

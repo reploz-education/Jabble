@@ -4,6 +4,7 @@ import java.io.*;
 public class Lettre {
     private static int valeurLettres;
     private static int lettresUtilise = 0;
+    private final static int maxLettres = 104;
 
     //Récuperer la valeur Lettres utilisé
     public static int getLettresUtilise() {
@@ -15,9 +16,8 @@ public class Lettre {
     }//OK
     //Vérifie si l'on peut piocher de nouvelle lettre
     public static boolean nouvellesLettresDisponible(){
-        int maxLettres = 104;
-        return getLettresUtilise() < maxLettres;
-    }//OK
+        return getLettresUtilise() <= maxLettres;
+    }
    //Vérifie à partir de la base de données des mots scrabble s'il existe le mot choisi par l'utilisateur
     public static boolean motValide(String pMot){
         String line, path="MotValideScrabble.txt";

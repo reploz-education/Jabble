@@ -31,7 +31,4 @@ public class Plateau {
             }
         }
     }
-    public static void placerlesLettres(){
-
-    }
 }
