@@ -97,6 +97,7 @@ class Chevalet {
                 + getCase6()
                 + getCase7());
     }
+
     //Relation case Factuelle et Case réelle (les cases factuelles sont utilisé pour les tests et deviennent des csaes réelles si tous marche correctement
     public void setAllCaseFact() {
         this.caseFact1 = this.case1;
@@ -237,21 +238,24 @@ class Chevalet {
     //Remplacer toutes les lettres du chevalet
     //Générer une lettre
     public String generateLettre() {
-        // Vérifie s'il y a assez de lettres
         //Erreur ! j'ai reçu une erreur avec Math.random.
         if (Lettre.nouvellesLettresDisponible()) {
             String lettreChoisi = "";
-            int i = (int) Math.floor(Math.random() * 27);
-            if (i == 27) {
-                lettreChoisi = lettreJoker;
-            } else {
-                lettreChoisi += lettresAleatoires.charAt(i);
-            }
-            System.out.println("Vous avez récupérer la lettre" + lettreChoisi);
+            int i;
+            do {
+                i = (int) Math.floor(Math.random() * 27);
+
+                if (i == 27) {
+                    lettreChoisi = lettreJoker;
+                } else {
+                    lettreChoisi += lettresAleatoires.charAt(i);
+                }
+            } while (i < 0 && i >= 27);
+            System.out.println("Vous avez récupérer la lettre : " + lettreChoisi);
             return lettreChoisi;
         } else {
             System.out.println("Vous ne pouvez plus récuperer de nouvelle lettre");
             return vide;
         }
-    } //OK
+    }
 }

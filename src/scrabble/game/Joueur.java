@@ -97,7 +97,7 @@ public class Joueur extends Chevalet {
         //Demander le mot, la position X et Y de ce mot au préalable
         System.out.println("Quelle mot voulez vous placer ?");
         Scanner iniParametre = new Scanner(System.in);
-        setMot(iniParametre.nextLine());
+        setMot(iniParametre.nextLine().toUpperCase());
         do {
             System.out.println("Quelle serait la position X de ce mot ?" +
                     "Attention : elle ne peut être contenue qu'entre 1 et 15 ");
@@ -116,7 +116,7 @@ public class Joueur extends Chevalet {
         // Initialise le tableau
         Plateau.setInitialiseTableau();
         //Placer les lettres dans le tableaux factices.
-        //Double fonction (en fonction de l'horientation du mot
+
         boolean verifOrientation = false;
         String orientation;
         while (!verifOrientation) {
@@ -135,15 +135,18 @@ public class Joueur extends Chevalet {
         formationMotPrincipal();
         //Etape verification
         //Verifier si le mot indiqué touche bien une case contenant une lettre ou le milieu du tableau
-        if (!touch()) {
+        if (!touch()) { //Il marche
+            System.out.println("Vos lettres ne touchent ni le centre du plateau ni au autre mot");
             return false;
         } else {
             //Verifier si le chevalet et les cases correspondantes possèdent ces lettres (inclure les lettre déjà présente dans le plateau)
-            if (!presenceLettres()) {
+            if (!presenceLettres()) { //il ne marche pas
+                System.out.println("Vous ne possédez pas les lettres suffisantes pour afficher ce mot");
                 return false;
             } else {
                 // Récuperer les mots formés, puis verifier qu'ils font partis du dico
                 if (!motSecondaire()) {
+                    System.out.println("Les mots formés avec les lettres que vous avez posé ne sont pas valide");
                     return false;
                 } else {
                     this.confirmAllsetchange();
@@ -183,7 +186,7 @@ public class Joueur extends Chevalet {
                 }
             }
         } else if (getOrientationMot() == 'v') {
-            for (int i = getPositionY(); i <= getPositionY() + getMot().length(); i++) {
+            for (int i = getPositionY(); i < getPositionY() + getMot().length(); i++) {
                 if (!(Plateau.getValeurFalseTableau(getPositionX(), i - 1) == '\0')
                         && !(Plateau.getValeurFalseTableau(getPositionX(), i + 1) == '\0')
                         || !(Plateau.getValeurFalseTableau(getPositionX(), i + 1) == '\0')
@@ -217,59 +220,61 @@ public class Joueur extends Chevalet {
 
     public boolean presenceLettres() {
         this.setAllCaseFact();
-        char find = '\0';
-        char primaire = '\0';
-        for (int i = 0; i <= getMot().length(); i++) {
+        String find;
+        String primaire;
+        for (int i = 0; i < getMot().length(); i++) {
+            find = "";
+            primaire = "";
             if (getOrientationMot() == 'h') {
-                find = Plateau.getValeurFalseTableau(getPositionX() + i, getPositionY());
-                primaire = Plateau.getvaleurTableau(getPositionX() + i, getPositionY());
+                find += Plateau.getValeurFalseTableau(getPositionX() + i, getPositionY());
+                primaire += Plateau.getvaleurTableau(getPositionX() + i, getPositionY());
             } else if (getOrientationMot() == 'v') {
-                find = Plateau.getValeurFalseTableau(getPositionX(), getPositionY() + i);
-                primaire = Plateau.getvaleurTableau(getPositionX(), getPositionY() + i);
+                find += Plateau.getValeurFalseTableau(getPositionX(), getPositionY() + i);
+                primaire += Plateau.getvaleurTableau(getPositionX(), getPositionY() + i);
             }
-            if (getCaseFact1().equals(find)) {
+            if (this.getCase1().equals(find)) {
                 System.out.println("Vous avez utiliser la lettre :" + getCase1() + "de la case 1");
                 this.setCaseFact1(generateLettre());
-            } else if (getCaseFact2().equals(find)) {
+            } else if (this.getCase2().equals(find)) {
                 System.out.println("Vous avez utiliser la lettre :" + getCase2() + "de la case 2");
                 this.setCaseFact2(generateLettre());
-            } else if (getCaseFact3().equals(find)) {
+            } else if (this.getCase3().equals(find)) {
                 System.out.println("Vous avez utiliser la lettre :" + getCase3() + "de la case 3");
                 this.setCaseFact3(generateLettre());
-            } else if (getCaseFact4().equals(find)) {
+            } else if (this.getCase4().equals(find)) {
                 System.out.println("Vous avez utiliser la lettre :" + getCase4() + "de la case 4");
                 this.setCaseFact4(generateLettre());
-            } else if (getCaseFact5().equals(find)) {
+            } else if (this.getCase5().equals(find)) {
                 System.out.println("Vous avez utiliser la lettre :" + getCase5() + "de la case 5");
                 this.setCaseFact5(generateLettre());
-            } else if (getCaseFact6().equals(find)) {
+            } else if (this.getCase6().equals(find)) {
                 System.out.println("Vous avez utiliser la lettre :" + getCase6() + "de la case 6");
                 this.setCaseFact6(generateLettre());
-            } else if (getCaseFact7().equals(find)) {
+            } else if (this.getCase7().equals(find)) {
                 System.out.println("Vous avez utiliser la lettre :" + getCase7() + "de la case 7");
                 this.setCaseFact7(generateLettre());
             } else if (find == primaire) {
                 System.out.println("La lettre " + Plateau.getValeurFalseTableau(getPositionX(), getPositionY()) + "se trouvait dans le tableau");
             } else {
-                if (getCaseFact1().equals("Joker")) {
+                if (this.getCase1().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact1(generateLettre());
-                } else if (getCaseFact2().equals("Joker")) {
+                } else if (this.getCase2().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact2(generateLettre());
-                } else if (getCaseFact3().equals("Joker")) {
+                } else if (this.getCase3().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact3(generateLettre());
-                } else if (getCaseFact4().equals("Joker")) {
+                } else if (this.getCase4().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact4(generateLettre());
-                } else if (getCaseFact5().equals("Joker")) {
+                } else if (this.getCase5().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact5(generateLettre());
-                } else if (getCaseFact6().equals("Joker")) {
+                } else if (this.getCase6().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact6(generateLettre());
-                } else if (getCaseFact7().equals("Joker")) {
+                } else if (this.getCase7().equals("Joker")) {
                     System.out.println("Vous avez utilisé votre Joker");
                     this.setCaseFact7(generateLettre());
                 }
@@ -281,20 +286,25 @@ public class Joueur extends Chevalet {
 
     public boolean touch() {
         if (getOrientationMot() == 'h') {
-            for (int i = getPositionX(); i <= getMot().length() + getPositionX(); i++) {
-                if (!(Plateau.getvaleurTableau(i + 1, getPositionY()) == '\0'))
+            for (int i = getPositionX(); i < getMot().length() + getPositionX(); i++) {
+                System.out.println("position X : "+i);
+                System.out.println("position Y : "+getPositionY());
+                if (!(Plateau.getvaleurTableau(i + 1, getPositionY()) == '\0')){
                     return true;
-                if (!(Plateau.getvaleurTableau(i - 1, getPositionY()) == '\0'))
+                } else if (!(Plateau.getvaleurTableau(i - 1, getPositionY()) == '\0')){
                     return true;
-                if (!(Plateau.getvaleurTableau(i, getPositionY() - 1) == '\0'))
+                } else if (!(Plateau.getvaleurTableau(i, getPositionY() - 1) == '\0')){
                     return true;
-                if (!(Plateau.getvaleurTableau(i, getPositionY() + 1) == '\0'))
+                } else if (!(Plateau.getvaleurTableau(i, getPositionY() + 1) == '\0')){
                     return true;
-                if (i == 8)
+                } else if (i == 7 && getPositionY() == 7){
                     return true;
+                }
             }
         } else if (getOrientationMot() == 'v') {
-            for (int i = getPositionY(); i <= getMot().length() + getPositionY(); i++) {
+            for (int i = getPositionY(); i < getMot().length() + getPositionY(); i++) {
+                System.out.println("position X : "+getPositionX());
+                System.out.println("position Y : "+i);
                 if (!(Plateau.getvaleurTableau(getPositionX() + 1, i) == '\0')) {
                     return true;
                 } else if (!(Plateau.getvaleurTableau(getPositionX() - 1, i) == '\0')) {
@@ -303,7 +313,7 @@ public class Joueur extends Chevalet {
                     return true;
                 } else if (!(Plateau.getvaleurTableau(getPositionX(), i + 1) == '\0')) {
                     return true;
-                } else if (i == 8) {
+                } else if (i == 7 && getPositionX() == 7) {
                     return true;
                 }
             }
@@ -311,7 +321,6 @@ public class Joueur extends Chevalet {
             System.out.println("Erreur : l'orientation ne peut être que vertical ou horizontal");
             return false;
         }
-        System.out.println("");
         return false;
     }
 
@@ -322,17 +331,17 @@ public class Joueur extends Chevalet {
                 System.out.println("Votre mot depasse les cases du tableau");
                 return false;
             }
-            for (int i = 1; i < getMot().length(); i++) {
-                    if (Plateau.getvaleurTableau(getPositionX()+j, getPositionY())=='\0'){
-                        Plateau.setValeurFalseTableau(getPositionX()+j,getPositionY(),getMot().charAt(i));
-                    } else if (!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())==getMot().charAt(i))){
-                        while (!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())==getMot().charAt(i))
-                                ||(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())=='\0')){
-                            j++;
-                        }
-                        Plateau.setValeurFalseTableau(getPositionX()+j,getPositionY(),getMot().charAt(i));
+            for (int i = 0; i < getMot().length(); i++) {
+                if (Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == '\0') {
+                    Plateau.setValeurFalseTableau(getPositionX() + j, getPositionY(), getMot().charAt(i));
+                } else if (!(Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == getMot().charAt(i))) {
+                    while (!(Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == getMot().charAt(i))
+                            || (Plateau.getvaleurTableau(getPositionX() + j, getPositionY()) == '\0')) {
+                        j++;
                     }
-                    j++;
+                    Plateau.setValeurFalseTableau(getPositionX() + j, getPositionY(), getMot().charAt(i));
+                }
+                j++;
             }
             System.out.println("Le mot a été formé");
             return true;
@@ -341,15 +350,15 @@ public class Joueur extends Chevalet {
                 System.out.println("Votre mot depasse les cases du tableau");
                 return false;
             }
-            for (int i = 0; i <= getMot().length(); i++) {
-                if (Plateau.getvaleurTableau(getPositionX(), j+getPositionY())=='\0'){
-                    Plateau.setValeurFalseTableau(getPositionX(),j+getPositionY(),getMot().charAt(i));
-                } else if (!(Plateau.getvaleurTableau(getPositionX(),j+getPositionY())==getMot().charAt(i))){
-                    while (!(Plateau.getvaleurTableau(getPositionX(),j+getPositionY())==getMot().charAt(i))
-                            ||(Plateau.getvaleurTableau(getPositionX(),j+getPositionY())=='\0')){
+            for (int i = 0; i < getMot().length(); i++) {
+                if (Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == '\0') {
+                    Plateau.setValeurFalseTableau(getPositionX(), j + getPositionY(), getMot().charAt(i));
+                } else if (!(Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == getMot().charAt(i))) {
+                    while (!(Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == getMot().charAt(i))
+                            || (Plateau.getvaleurTableau(getPositionX(), j + getPositionY()) == '\0')) {
                         j++;
                     }
-                    Plateau.setValeurFalseTableau(getPositionX(),j+getPositionY(),getMot().charAt(i));
+                    Plateau.setValeurFalseTableau(getPositionX(), j + getPositionY(), getMot().charAt(i));
                 }
                 j++;
             }
