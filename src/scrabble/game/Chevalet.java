@@ -251,7 +251,6 @@ class Chevalet {
                     lettreChoisi += lettresAleatoires.charAt(i);
                 }
             } while (i <= 0 && i >= 26);
-            System.out.println("Vous avez récupérer la lettre : " + lettreChoisi);
             return lettreChoisi;
         } else {
             System.out.println("Vous ne pouvez plus récuperer de nouvelle lettre");

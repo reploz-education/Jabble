@@ -67,17 +67,19 @@ public class Pscrabble extends JPanel {
             j++;
             i=0;
         }
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        if ((Plateau.getvaleurTableau(7,7)=='\0')){
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
 
-        g2d.setColor(Color.black);
-        Point center = new Point(carre*8+(carre/3),carre*8+(2*carre/9));
-        g2d.fill(createStar(8, center, 20 / 9, 10));
-        g2d.dispose();
+            g2d.setColor(Color.black);
+            Point center = new Point(carre*8+(carre/2),carre*8+(2*carre/8));
+            g2d.fill(createStar(8, center, 5, 15));
+            g2d.dispose();
+        }
         g.setColor(Color.gray);
         g.fillRect(20,carre * 17,carre*15+tcarre, tcarre*2);
         g.setColor(Color.black);
@@ -89,6 +91,7 @@ public class Pscrabble extends JPanel {
         g.drawString(case6, carre*11, carre*18);
         g.drawString(case7, carre*13, carre*18);
     }
+
     public static Shape createStar(int arms, Point center, double rOuter, double rInner)
     {
         double angle = Math.PI / arms;

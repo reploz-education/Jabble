@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        /*System.out.println("Bienvenue \n Vous jouez au Scrabble \n Combien de joueurs êtes vous ? \n");
+        System.out.println("Bienvenue \n Vous jouez au Scrabble \n Combien de joueurs êtes vous ? \n");
         Scanner parametre = new Scanner(System.in);
         int nombreJoueurs;
         do {
@@ -12,8 +12,6 @@ public class Main {
         } while (!(nombreJoueurs <= 4 && nombreJoueurs > 0));
         deroulementdelapartie(nombreJoueurs);
         System.out.println("Fin du jeu.");
-        */
-        Fenetre fenetre = new Fenetre();
     }
 
     public static void deroulementdelapartie(int pNombreJoeurs) {
@@ -77,6 +75,7 @@ public class Main {
                         Player1.getCase4(),
                         Player1.getCase6(),
                         Player1.getCase7());
+                Fenetre.infoNouveauJoueur(Player1.getNamePlayer());
                 System.out.println("Menu des actions :" +
                         "\n 1 - Placer un mot" +
                         "\n 2 - Changer de lettre" +
@@ -119,6 +118,7 @@ public class Main {
                         Player2.getCase4(),
                         Player2.getCase6(),
                         Player2.getCase7());
+                Fenetre.infoNouveauJoueur(Player2.getNamePlayer());
                 System.out.println("Menu des actions :" +
                         "\n 1 - Placer un mot" +
                         "\n 2 - Changer de lettre" +
@@ -159,6 +159,7 @@ public class Main {
                         Player3.getCase4(),
                         Player3.getCase6(),
                         Player3.getCase7());
+                Fenetre.infoNouveauJoueur(Player3.getNamePlayer());
                 System.out.println("Menu des actions :" +
                         "\n 1 - Placer un mot" +
                         "\n 2 - Changer de lettre" +
@@ -189,7 +190,7 @@ public class Main {
                         break;
                 }
             }
-            while (retry4 && pNombreJoeurs >= 4) {
+            while (retry4 && pNombreJoeurs == 4) {
                 System.out.println("Joueur 4 : " +Player4.getNamePlayer());
                 fenetre.changerchevalet(
                         Player4.getCase1(),
@@ -199,6 +200,7 @@ public class Main {
                         Player4.getCase4(),
                         Player4.getCase6(),
                         Player4.getCase7());
+                Fenetre.infoNouveauJoueur(Player4.getNamePlayer());
                 System.out.println("Menu des actions :" +
                         "\n 1 - Placer un mot" +
                         "\n 2 - Changer de lettre" +
