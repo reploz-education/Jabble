@@ -11,6 +11,7 @@ public class Joueur extends Chevalet {
     private String namePlayer;
     private String mot;
     private int scorePlayer;
+    private int PointaAjouter;
     private int positionX;
     private int positionY;
     private boolean positionXValide;
@@ -79,24 +80,21 @@ public class Joueur extends Chevalet {
         this.positionY = pPositionY;
     }
 
-    public void setScorePlayer(int pScorePlayer) {
-        this.scorePlayer = pScorePlayer;
-    }
-
     //Constructeur Joueur
-    public Joueur() {}
+    public Joueur() {
+    }
 
     //Méthodes
     public boolean pLacerDesLettres() {
         //Etape placement
         setPositionXValide(false);
         setPositionYValide(false);
-        //Demander le mot, la position X et Y de ce mot au préalable
+        //Demander le mot, la position positionX et positionY de ce mot au préalable
         System.out.println("Quelle mot voulez vous placer ?");
         Scanner iniParametre = new Scanner(System.in);
         setMot(iniParametre.nextLine().toUpperCase());
         do {
-            System.out.println("Quelle serait la position X de ce mot ?" +
+            System.out.println("Quelle serait la position positionX de ce mot ?" +
                     "Attention : elle ne peut être contenue qu'entre 1 et 15 ");
             setPositionX(iniParametre.nextInt() - 1);
             if (getPositionX() <= 14 && getPositionX() > 0)
@@ -104,7 +102,7 @@ public class Joueur extends Chevalet {
         } while (!getpositionXValide());
 
         do {
-            System.out.println("Quelle serait la positoin Y de ce mot ?" +
+            System.out.println("Quelle serait la positoin positionY de ce mot ?" +
                     "Attention : elle ne peut être contenue qu'entre 1 et 15 ");
             setPositionY(iniParametre.nextInt() - 1);
             if (getPositionY() <= 14 && getPositionY() > 0)
@@ -129,6 +127,7 @@ public class Joueur extends Chevalet {
                 verifOrientation = true;
             }
         }
+        System.out.println(motVeritalbe());
         formationMotPrincipal();
         //Etape verification
         //Verifier si le mot indiqué touche bien une case contenant une lettre ou le milieu du tableau
@@ -208,6 +207,7 @@ public class Joueur extends Chevalet {
             }
         }
         for (String listeMot : tableaudeMot) {
+            //PointaAjouter += ajoutScore();
             if (!Lettre.motValide(listeMot)) {
                 return false;
             }
@@ -284,33 +284,33 @@ public class Joueur extends Chevalet {
     public boolean touch() {
         if (getOrientationMot() == 'h') {
             for (int i = getPositionX(); i < getMot().length() + getPositionX(); i++) {
-                System.out.println("position X : " + i);
-                System.out.println("position Y : " + getPositionY());
-                if (!(Plateau.getvaleurTableau(i + 1, getPositionY()) == '\0')) {
+                System.out.println("position positionX : " + i);
+                System.out.println("position positionY : " + positionY);
+                if (!(Plateau.getvaleurTableau(i + 1, positionY) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(i - 1, getPositionY()) == '\0')) {
+                } else if (!(Plateau.getvaleurTableau(i - 1, positionY) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(i, getPositionY() - 1) == '\0')) {
+                } else if (!(Plateau.getvaleurTableau(i, positionY - 1) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(i, getPositionY() + 1) == '\0')) {
+                } else if (!(Plateau.getvaleurTableau(i, positionY + 1) == '\0')) {
                     return true;
-                } else if (i == 7 && getPositionY() == 7) {
+                } else if (i == 7 && positionY == 7) {
                     return true;
                 }
             }
         } else if (getOrientationMot() == 'v') {
             for (int i = getPositionY(); i < getMot().length() + getPositionY(); i++) {
-                System.out.println("position X : " + getPositionX());
-                System.out.println("position Y : " + i);
-                if (!(Plateau.getvaleurTableau(getPositionX() + 1, i) == '\0')) {
+                System.out.println("position positionX : " + positionX);
+                System.out.println("position positionY : " + i);
+                if (!(Plateau.getvaleurTableau(positionX + 1, i) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(getPositionX() - 1, i) == '\0')) {
+                } else if (!(Plateau.getvaleurTableau(positionX - 1, i) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(getPositionX(), i - 1) == '\0')) {
+                } else if (!(Plateau.getvaleurTableau(positionX, i - 1) == '\0')) {
                     return true;
-                } else if (!(Plateau.getvaleurTableau(getPositionX(), i + 1) == '\0')) {
+                } else if (!(Plateau.getvaleurTableau(positionX, i + 1) == '\0')) {
                     return true;
-                } else if (i == 7 && getPositionX() == 7) {
+                } else if (i == 7 && positionX == 7) {
                     return true;
                 }
             }
@@ -329,43 +329,33 @@ public class Joueur extends Chevalet {
                 return false;
             }
             for (int i = 0; i < getMot().length(); i++) {
-                    if (j+getPositionY()>15){
-                        System.out.println("Erreur programme !");
-                        return false;
-                    }
-                    while (!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())=='\0')
-                            ||(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())==getMot().charAt(i))) {
-                        j++;
-                    }
-                    Plateau.setValeurFalseTableau(getPositionX()+j, getPositionY(), getMot().charAt(i));
-                    j++;
-            }
-            do {
-                j--;
-            } while((!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())=='\0')));
-            String motComplet = "";
-            while((!(Plateau.getvaleurTableau(getPositionX()+j,getPositionY())=='\0'))){
-                motComplet +=Plateau.getvaleurTableau(getPositionX()+j,getPositionY());
-                j++;
-            }
-            System.out.println(motComplet);
-            System.out.println("Le mot a été formé");
-            return true;
-        } else if (this.getOrientationMot() == 'v') {
-            if (getPositionY() + getMot().length() > 15) {
-                System.out.println("Votre mot depasse les cases du tableau");
-                return false;
-            }
-            for (int i = 0; i < getMot().length(); i++) {
-                if (j+getPositionY()>15){
+                if (j + getPositionY() > 15) {
                     System.out.println("Erreur programme !");
                     return false;
                 }
-                while (!(Plateau.getvaleurTableau(getPositionX(),getPositionY()+j)=='\0')
-                        ||(Plateau.getvaleurTableau(getPositionX(),getPositionY()+j)==getMot().charAt(i))) {
-                        j++;
+                while (!(Plateau.getvaleurTableau(positionX + j, positionY) == '\0')
+                        || (Plateau.getvaleurTableau(positionX + j, positionY) == getMot().charAt(i))) {
+                    j++;
                 }
-                Plateau.setValeurFalseTableau(getPositionX(), j + getPositionY(), getMot().charAt(i));
+                Plateau.setValeurFalseTableau(getPositionX() + j, getPositionY(), getMot().charAt(i));
+                j++;
+            }
+            return true;
+        } else if (this.getOrientationMot() == 'v') {
+            if (positionY + mot.length() > 15) {
+                System.out.println("Votre mot depasse les cases du tableau");
+                return false;
+            }
+            for (int i = 0; i < mot.length(); i++) {
+                if (j + positionY > 15) {
+                    System.out.println("Erreur programme !");
+                    return false;
+                }
+                while (!(Plateau.getvaleurTableau(positionX, positionY + j) == '\0')
+                        || (Plateau.getvaleurTableau(positionX, positionY + j) == mot.charAt(i))) {
+                    j++;
+                }
+                Plateau.setValeurFalseTableau(positionX, j + positionY, mot.charAt(i));
                 j++;
             }
             System.out.println("Le mot a été formé");
@@ -374,4 +364,118 @@ public class Joueur extends Chevalet {
         System.out.println("Erreur sur l'orientation du mot");
         return false;
     }
+
+    public String motVeritalbe() {
+        String motComplet = "";
+        int j = 0;
+        if (orientationMot == 'h') {
+
+            System.out.println((!(Plateau.getvaleurTableau(positionX + j, positionY) == '\0')));
+            while ((!(Plateau.getvaleurTableau(positionX + j, positionY) == '\0'))) {
+                j--;
+            }
+            while ((!(Plateau.getvaleurTableau(positionX + j, positionY) == '\0'))) {
+                motComplet += Plateau.getvaleurTableau(positionX + j, positionY);
+                j++;
+            }
+        } else if (orientationMot == 'v') {
+
+            System.out.println((!(Plateau.getvaleurTableau(positionX, positionY + j) == '\0')));
+            while ((!(Plateau.getvaleurTableau(positionX, positionY + j) == '\0'))) {
+                j--;
+            }
+            while ((!(Plateau.getvaleurTableau(positionX, positionY + j) == '\0'))) {
+                motComplet += Plateau.getvaleurTableau(positionX, positionY + j);
+                j++;
+            }
+        }
+        System.out.println("Le mot a été formé");
+        System.out.println("Mot Complet : " + motComplet);
+        return motComplet;
+    }
+
+    public void ajoutScore(String pMot, int pPositionX, int pPositionY) {
+        int doublemot = 0;
+        int triplemot = 0;
+        int valeurLettre = 0;
+        if (orientationMot == 'h') {
+            for (int i = positionX; i < positionX + mot.length(); i++) {
+                valeurLettre = position(pPositionX, pPositionY);
+                if ((positionX == 1 || positionX == 8 || positionX == 15)
+                        && (positionY == 0 || positionY == 0 || positionY == 14)) {
+                    //Mot triple
+                    triplemot++;
+                } else if (((positionX == 1 || positionX == 13) && (positionY == 1 || positionY == 13))
+                        || ((positionX == 2 || positionX == 12) && (positionY == 2 || positionY == 12))
+                        || ((positionX == 3 || positionX == 11) && (positionY == 3 || positionY == 11))
+                        || ((positionX == 4 || positionX == 10) && (positionY == 4 || positionY == 10))
+                        ) {
+                    //Mot Double
+                    doublemot++;
+                } else if (((positionX == 5 || positionX == 9) && (positionY == 5 || positionY == 9 || positionY == 1))
+                        || ((positionX == 1 || positionX == 13) && (positionY == 5 || positionY == 9))) {
+                    //Lettre triple
+                    valeurLettre = valeurLettre * 3;
+                } else if (((positionX == 6 || positionX == 8 || positionX == 2 || positionX == 12)
+                        && (positionY == 2 || positionY == 6 || positionY == 8 || positionY == 12))
+                        || ((positionX == 0 || positionX == 3 || positionX == 7 || positionX == 11 || positionX == 14)
+                        && (positionY == 0 || positionY == 3 || positionY == 7 || positionY == 11 || positionY == 14))
+                        ) {
+                    //Double lettre
+                    valeurLettre = valeurLettre * 2;
+                }
+            }
+        } else if (orientationMot == 'v') {
+
+            if ((positionX == 1 || positionX == 8 || positionX == 15)
+                    && (pPositionY == 0 || pPositionY == 0 || pPositionY == 14)) {
+                //Mot triple
+                triplemot++;
+            } else if (((positionX == 1 || positionX == 13) && (pPositionY == 1 || pPositionY == 13))
+                    || ((positionX == 2 || positionX == 12) && (pPositionY == 2 || pPositionY == 12))
+                    || ((positionX == 3 || positionX == 11) && (pPositionY == 3 || pPositionY == 11))
+                    || ((positionX == 4 || positionX == 10) && (pPositionY == 4 || pPositionY == 10))
+                    ) {
+                //Mot Double
+                doublemot++;
+            } else if (((positionX == 5 || positionX == 9) && (pPositionY == 5 || pPositionY == 9 || pPositionY == 1))
+                    || ((positionX == 1 || positionX == 13) && (pPositionY == 5 || pPositionY == 9))) {
+                //Lettre triple
+                valeurLettre = valeurLettre * 3;
+            } else if (((positionX == 6 || positionX == 8 || positionX == 2 || positionX == 12)
+                    && (pPositionY == 2 || pPositionY == 6 || pPositionY == 8 || pPositionY == 12))
+                    || ((positionX == 0 || positionX == 3 || positionX == 7 || positionX == 11 || positionX == 14)
+                    && (pPositionY == 0 || pPositionY == 3 || pPositionY == 7 || pPositionY == 11 || pPositionY == 14))
+                    ) {
+                //Double lettre
+                valeurLettre = valeurLettre * 2;
+            }
+        } else {
+            System.out.println("erreur orientation");
+        }
+    }
+
+    public static int position(int pPositionX, int pPositionY) {
+        int valeurLettre = 0;
+        char valeurTableau = Plateau.getValeurFalseTableau(pPositionX, pPositionY);
+        if (valeurTableau == 'A' || valeurTableau == 'E' || valeurTableau == 'I'
+                || valeurTableau == 'O' || valeurTableau == 'U' || valeurTableau == 'L'
+                || valeurTableau == 'N' || valeurTableau == 'R' || valeurTableau == 'S'
+                || valeurTableau == 'T') {
+            valeurLettre = 1;
+        } else if (valeurTableau == 'D' || valeurTableau == 'G' || valeurTableau == 'M') {
+            valeurLettre = 2;
+        } else if (valeurTableau == 'B' || valeurTableau == 'C' || valeurTableau == 'P') {
+            valeurLettre = 3;
+        } else if (valeurTableau == 'J' || valeurTableau == 'Q') {
+            valeurLettre = 8;
+        } else if (valeurTableau == 'K' || valeurTableau == 'W' || valeurTableau == 'X' ||
+                valeurTableau == 'Y' || valeurTableau == 'Z') {
+            valeurLettre = 10;
+        } else if (valeurTableau == 'F' || valeurTableau == 'H' || valeurTableau == 'V') {
+            valeurLettre = 4;
+        }
+        return valeurLettre;
+    }
 }
+

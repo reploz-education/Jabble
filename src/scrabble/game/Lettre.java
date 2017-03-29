@@ -39,5 +39,5 @@ public class Lettre {
         }
         System.out.println("Je ne sais pas ce qui se passe");
         return false;
-    }// OK
+    }
 }
