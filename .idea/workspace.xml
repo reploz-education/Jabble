@@ -2,6 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27fb56ae-36f5-4aa0-826b-1c5b22798d41" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/scrabble/game/PFenetre.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/scrabble/game/mnmn.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/CScrabble.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/Fenetre.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/scrabble/game/CScrabble.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/scrabble/game/Fenetre.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/Joueur.class" afterPath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/Joueur.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/Main.class" afterPath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/Pscrabble.class" afterPath="$PROJECT_DIR$/out/production/Scrabble2nd/scrabble/game/Pscrabble.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
