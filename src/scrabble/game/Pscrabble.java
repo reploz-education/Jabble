@@ -14,6 +14,8 @@ public class Pscrabble extends JPanel {
     private String case5 = "";
     private String case6 = "";
     private String case7 = "";
+    private JTextField motSaisi = new JTextField();
+    private JLabel L_motSaisi = new JLabel();
 
     public void setAllCase(String case1, String case2, String case3, String case4, String case5, String case6, String case7) {
         this.case1 = case1;
@@ -26,8 +28,8 @@ public class Pscrabble extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
-        Font font = new Font("", Font.BOLD, 20);
-        g.setFont(font);
+        Font police = new Font("Arial", Font.BOLD, 14);
+        g.setFont(police);
         int i = 0, j = 0;
         String tableau = "";
         g.setColor(Color.black);
@@ -39,28 +41,30 @@ public class Pscrabble extends JPanel {
                     g.setColor(Color.MAGENTA);
                 } else if ((x == carre || x == carre * 8 || x == carre * 15)
                         && (y == carre || y == carre * 8 || y == carre * 15)) {
-                    g.setColor(Color.RED);
+                    g.setColor(Color.RED);//Mot Triple
                 } else if (((x == carre * 2 || x == carre * 14) && (y == carre * 2 || y == carre * 14))
                         || ((x == carre * 3 || x == carre * 13) && (y == carre * 3 || y == carre * 13))
                         || ((x == carre * 4 || x == carre * 12) && (y == carre * 4 || y == carre * 12))
                         || ((x == carre * 5 || x == carre * 11) && (y == carre * 5 || y == carre * 11))
                         ) {
-                    g.setColor(Color.MAGENTA);
+                    g.setColor(Color.MAGENTA);//Mot Double
                 } else if (((x == carre * 6 || x == carre * 10) && (y == carre * 6 || y == carre * 10 || y == carre * 2))
                         || ((x == carre * 2 || x == carre * 14) && (y == carre * 6 || y == carre * 10))) {
-                    g.setColor(Color.blue);
+                    g.setColor(Color.blue);//Lettre Triple
                 } else if (((x == carre * 7 || x == carre * 9 || x == carre * 3 || x == carre * 13)
                         && (y == carre * 3 || y == carre * 7 || y == carre * 9 || y == carre * 13))
                         || ((x == carre || x == carre * 4 || x == carre * 8 || x == carre * 12 || x == carre * 15)
                         && (y == carre || y == carre * 4 || y == carre * 8 || y == carre * 12 || y == carre * 15))
                 ) {
-                    g.setColor(Color.cyan);
+                    g.setColor(Color.cyan);//Double Lettre
                 } else{
-                    g.setColor(Color.GREEN);
+                    g.setColor(Color.white);
                 }
                 g.fillRect(x, y, tcarre, tcarre);
                 g.setColor(Color.black);
-                g.drawString(tableau.toUpperCase(),x+5,y+15);
+                if(tableau ==""){
+                    g.drawString(tableau.toUpperCase(),x+5,y+15);
+                }
                 tableau = "";
                 i++;
             }
@@ -74,7 +78,6 @@ public class Pscrabble extends JPanel {
 
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
                     RenderingHints.VALUE_RENDER_QUALITY);
-
             g2d.setColor(Color.black);
             Point center = new Point(carre*8+(carre/2),carre*8+(2*carre/8));
             g2d.fill(createStar(8, center, 5, 15));
@@ -92,8 +95,7 @@ public class Pscrabble extends JPanel {
         g.drawString(case7, carre*13, carre*18);
     }
 
-    public static Shape createStar(int arms, Point center, double rOuter, double rInner)
-    {
+    public static Shape createStar(int arms, Point center, double rOuter, double rInner) {
         double angle = Math.PI / arms;
 
         GeneralPath path = new GeneralPath();
@@ -107,4 +109,5 @@ public class Pscrabble extends JPanel {
         }
         path.closePath();
         return path;
-    }}
+    }
+}
